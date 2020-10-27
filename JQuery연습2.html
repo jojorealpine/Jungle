@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--    jQuery import-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Title</title>
+    <style>
+        #post-box {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<button id="post-box" ; onclick="openclose()" class="btn btn-primary btn-lg">포스팅박스 열기</button>
+<script>
+    function openclose() {
+        let status = $('#post-box').css('display');
+        console.log(status);
+        if (status == 'block') {
+            $('#post-box').hide();
+            $('#posting-box-btn').text('포스팅박스 열기');
+        } else {
+            $('#post-box').show();
+            $('#posting-box-btn').text('포스팅박스 닫기');
+        }
+    }
+</script>
+
+</body>
+</html>
