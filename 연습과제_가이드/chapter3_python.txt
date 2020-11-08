@@ -1,0 +1,134 @@
+#python
+<문법>
+1. - 자바스크립트와 다르게 새 변수를 만들 때 `let`을 쓰지 않습니다. 출력할 때는 `print()`를 씁니다.
+    a = 3        # 3을 a에 넣는다
+    print(a)
+    b = a        # b에 3을 넣는다.
+    print(b)
+    a = 5        # a에 5라는 새로운 값을 넣는다.
+    print(a, b)  # 5 3
+
+2. 파이썬의 리스트와 딕셔너리는 자바스크립트와 비슷합니다.
+a_list = []
+a_list.append(1)     # 리스트에 값을 넣는다
+a_list.append([2,3]) # 리스트에 [2,3]이라는 리스트를 다시 넣는다
+
+a_list         # [1,[2,3]]
+len(a_list)    # 2 리스트의 길이
+a_list[0]      # 1
+a_list[1]      # [2,3]
+a_list[1][0]   # 2
+
+a_dict = {}
+a_dict = {'name':'bob','age':21}
+a_dict['height'] = 178
+
+people = [{'name':'bob','age':20},{'name':'carry','age':38}]
+
+# people[0]['name']의 값은? 'bob'
+# people[1]['name']의 값은? 'carry'
+
+person = {'name':'john','age':7}
+people.append(person)
+
+# people의 값은? [{'name':'bob','age':20},{'name':'carry','age':38},{'name':'john','age':7}]
+# people[2]['name']의 값은? 'john
+
+3.함수
+
+# 참고: 자바스크립트에서는
+function f(x) {
+    return 2*x+3
+}
+
+# 파이썬에서
+def f(x):
+    return 2*x+3   # 중괄호 대신에 들여쓰기로 각 블록의 범위를 표시한다.
+
+4.else if는 elif로 줄여씁니다.
+
+5.반복문
+fruits = ['사과','배','감','귤']
+
+for fruit in fruits:
+    print(fruit)
+
+# 사과
+# 배
+# 감
+# 귤
+
+
+<package>
+1. requests :  OpenAPI에서 미세먼지 정보를 받아올 수 있습니다.
+import requests # requests 라이브러리 설치 필요
+
+r = requests.get('http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99')
+rjson = r.json()
+
+print(rjson)
+print(rjson['RealtimeCityAir']['row'][0]['NO2']) # 중구의 NO2 값
+
+2. beautifulsoup4  : HTML 구조를 파악 . 웹스크래핑
+import requests
+from bs4 import BeautifulSoup
+
+# 타겟 URL을 읽어서 HTML를 받아오고,
+headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+data = requests.get('https://movie.naver.com/movie/sdb/rank/rmovie.nhn?sel=pnt&date=20200303',headers=headers)
+
+# HTML을 BeautifulSoup이라는 라이브러리를 활용해 검색하기 용이한 상태로 만듦
+# soup이라는 변수에 "파싱 용이해진 html"이 담긴 상태가 됨
+# 이제 코딩을 통해 필요한 부분을 추출하면 된다.
+soup = BeautifulSoup(data.text, 'html.parser')
+print(soup)  # HTML을 받아온 것을 확인할 수 있다.
+###select()는 조건을 만족하는 모든 요소를 리스트에 담아 반환하고, select_one()은 그 중 가장 위에 나오는 요소를 반환합니다.
+# select를 이용해서, tr들을 불러오기
+movies = soup.select('#old_content > table > tbody > tr')
+print(len(movies)) # 56
+
+for movie in movies:
+    print(movie)
+# movies (tr들) 의 반복문을 돌리기
+for movie in movies:
+    # movie 안에 a 가 있으면,
+    # (조건을 만족하는 첫 번째 요소, 없으면 None을 반환한다.)
+    a_tag = movie.select_one('td.title > div > a') 
+    print(a_tag)
+
+**개발자도구 Elements 탭에서 요소를 우클릭한 후 Copy > Copy selector를 해서 선택자를 얻을 수 있습니다
+
+3.pymongo : mongoDB사용하기 위한 패키지
+##DB 연결하기
+from pymongo import MongoClient           # pymongo를 임포트 하기(패키지 인스톨 먼저 해야겠죠?)
+client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
+db = client.dbsparta                      # 'dbsparta'라는 이름의 db를 만듭니다.
+
+# MongoDB에 insert 하기
+
+# 'users'라는 collection에 {'name':'bobby','age':21}를 넣습니다.
+db.users.insert_one({'name':'bobby','age':21})
+db.users.insert_one({'name':'kay','age':27})
+db.users.insert_one({'name':'john','age':30})
+
+# MongoDB에서 데이터 모두 보기
+all_users = list(db.users.find({}))
+
+# 참고) MongoDB에서 특정 조건의 데이터 모두 보기
+same_ages = list(db.users.find({'age':21}))
+
+# 저장 - 예시
+doc = {'name':'bobby','age':21}
+db.users.insert_one(doc)
+
+# 한 개 찾기 - 예시
+user = db.users.find_one({'name':'bobby'})
+
+# 여러개 찾기 - 예시 ( _id 값은 제외하고 출력)
+same_ages = list(db.users.find({'age':21},{'_id':False}))
+
+# 바꾸기 - 예시
+db.users.update_one({'name':'bobby'},{'$set':{'age':19}})
+
+# 지우기 - 예시
+db.users.delete_one({'name':'bobby'})

@@ -1,0 +1,50 @@
+#JavaScript
+1.console.log()
+2.변수선언 : let
+3.문자열 처리
+-toUpperCase()
+-split
+let txt = '서울시-마포구-망원동'
+let names = txt.split('-'); // ['서울시','마포구','망원동']
+let result = names.join('>'); // '서울시>마포구>망원동'
+4.리스트와 딕셔너리
+-리스트
+let a_list = [1, 4, 2, [3, 1]]
+
+a_list.length       // 4
+a_list[3]           // [3, 1]
+a_list[3][1]        // 1
+
+let b_list = [4, 1, 0]
+a_list.push(b_list) 
+a_list              // [1, 4, 2, [3, 1], [4, 1, 0]]
+a_list.length       // 5
+
+// 리스트와 리스트를 이어붙이고 싶다면
+let c_list = a_list.concat(b_list)
+c_list              // [1, 4, 2, [3, 1], [4, 1, 0], 4, 1, 0]
+a_list              // [1, 4, 2, [3, 1], [4, 1, 0]] 변하지 않음
+-딕셔너리
+:딕셔너리는 키(key)와 밸류(value)의 쌍으로 이루어진 요소들을 갖고 있습니다. 딕셔너리의 요소의 값은 키를 이용해 가져올 수 있고, 각 요소에 순서는 따로 없어요.
+let a_dict = {}                       // 빈 딕셔너리 선언
+
+// 또는,
+
+let b_dict = {'name':'Bob','age':21}  // 로 선언 가능
+b_dict['name']                        // 'Bob'을 출력
+b_dict['age']             
+
+**딕셔너리들을 요소로 갖는 리스트도 만들 수 있습니다. 비슷한 형태의 자료를 정리할 때 유용하겠죠
+
+
+
+names = [{'name':'bob','age':20},{'name':'carry','age':38}]
+
+// names[0]['name']의 값은? 'bob'
+// names[1]['name']의 값은? 'carry'
+
+new_name = {'name':'john','age':7}
+names.push(new_name)
+
+// names의 값은? [{'name':'bob','age':20},{'name':'carry','age':38},{'name':'john','age':7}]
+// names[2]['name']의 값은? 'john'

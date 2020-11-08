@@ -1,0 +1,66 @@
+#CSS
+1.선택자
+/* 모든 태그에 적용하고 싶을 때 */
+* {
+    속성: 선택지;
+}
+
+/* 특정 태그를 지칭할 때 */
+태그 {
+    속성1: 선택지1;
+    속성2: 선택지2;
+}
+
+/* 클래스 이름 앞에는 .을 찍는다. */
+.클래스 {
+    속성: 선택지;
+}
+
+/* 아이디 앞에는 #을 붙인다. */
+#아이디 {
+    속성: 선택지;
+}
+
+/* 특정 클래스를 갖는 특정 태그를 지칭할 때는 클래스를 뒤에 붙여 쓴다 */
+태그.클래스 {
+    속성: 선택지;
+}
+
+/* 자식 선택자는 > 뒤에 적는다 */
+/* 즉, 아래는 '아이디'라는 아이디를 갖는 요소 바로 안의 '태그' 태그를 선택한 것이다 */
+#아이디 > 태그 {
+    속성: 선택지;
+}
+
+/* 자손 선택자는 띄어쓰기로 구분한다. */
+/* 즉, 아래는 '클래스'라는 클래스를 갖는 '태그1' 태그 안에 있는 모든 '태그2'를 선택한 것이다 */
+태그1.클래스 태그2 {
+    속성: 선택지;
+}
+
+2.폰트
+구글포트
+url :  https://fonts.google.com/?subset=korean
+link태그 값 : url > [ + Select this style ] > 우측상단 모음 아이콘 > embed > link 태그 복사 <head>태그 안에 삽입.
+
+3. CSS 파일 분리
+<link rel="stylesheet" type="text/css" href = "my_style.css">
+
+4. 부트스트랩
+-4개 링크를 head에 포함시킨다. 
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+- 부트스트랩 컴포넌트 : https://getbootstrap.com/docs/4.0/components/alerts/
+- 부트스트랩 레이아웃 : https://getbootstrap.com/docs/4.0/layout/grid/
+
+**복사해오는 내용 중 form 태그가 있다면, form 태그를 div 태그로 바꿔주는 게 좋습니다.
+→ <form>태그 안에 버튼이 있으면, 버튼을 눌렀을 때 자동으로 새로고침이 되는데, 뒤에 만들 기능과 충돌을 일으킬 수 있거든요!
+
+

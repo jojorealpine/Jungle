@@ -1,0 +1,67 @@
+$jQuery
+예)
+-js : document.getElementById("element").style.display = "none";
+-jq :$('#element').hide();
+
+1.jQuery import
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+2.내장 함수
+// id 값이 post-url인 곳을 가리키고, val()로 값을 가져온다.
+let url = $('#post-url').val();
+url // input 박스 안에 적혀있는 내용이 출력된다.
+$('#post-url').val("새 글입니다.");
+
+// id 값이 post-box인 곳을 가리키고, hide()로 안보이게 한다.(=css의 display 값을 none으로 바꾼다)
+$('#post-box').hide();
+
+// show()로 보이게 한다.(=css의 display 값을 block으로 바꾼다)
+$('#post-box').show();
+
+//CSS 속성 값 가져오기
+$('#post-box').css('display');
+
+let btn_text = $('#btn-posting-box').text(); //button 시작/종료 태그 사이의 텍스트
+btn_text         // '포스팅박스 열기'가 출력된다.
+$('#btn-posting-box').text('포스팅박스 닫기');
+
+**append**
+$('#cards-box').append("추가 텍스트");
+let temp_html = `<button>추가 버튼</button>`;
+$('#cards-box').append(temp_html);
+
+**페이지 로딩이 완료되면 실행하기**
+$(document).ready(function(){
+	alert('페이지가 로딩되었습니다.')
+});
+
+
+#JSON
+1.JavaScript Object Notation의 줄임말로, 브라우저-서버 간 통신에서 데이터를 전달하기 위해 인간이 읽을 수 있는 텍스트를 사용하는 개방형 표준 포맷입니다. 본래는 자바스크립트에서 파생되었지만 편의성 덕분에 모든 언어/플랫폼에서 사용하게 되었습니다.
+2.미세먼지 API
+http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99
+위 예제에서는 RealtimeCityAir라는 키 값에 딕셔너리 형 value가 들어가있고,
+그 안에 row라는 키 값에는 리스트형 value가 들어가있습니다.
+
+#ajax
+:Asynchronous JavaScript and XML에서 따온 말로, 비동기적인 웹 애플리케이션의 제작에 쓰이는 웹 개발 기법이다.
+참고! Ajax는 jQuery를 임포트한 페이지에서만 동작 가능합니다.
+1.기본골격
+$.ajax({
+  type: "GET", // GET 방식으로 요청한다.
+  url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+  data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)POST 요청은, data : {} 에 넣어서 데이터를 가져갑니다.data: { param: 'value', param2: 'value2' },
+  success: function(response){ // 서버에서 준 결과를 response라는 변수에 담음
+    console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
+  }
+})
+
+2.미세먼지 api 써서, 값 찍기
+$.ajax({
+  type: "GET", // GET 방식으로 요청한다.
+  url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+  data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+  success: function(response){ // 서버에서 준 결과를 response라는 변수에 담음
+    console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
+  }
+})

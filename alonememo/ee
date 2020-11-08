@@ -1,0 +1,74 @@
+
+dxcan@DESKTOP-AL02PGO MINGW64 /
+$ ssh -i /d/sources/Jungle/jungle.pem ubuntu@3.34.185.7
+The authenticity of host '3.34.185.7 (3.34.185.7)' can't be established.
+ECDSA key fingerprint is SHA256:86Wm6GyJyW4KRTwknLcCh5LVw28FCqTMFJYZtoGzJHc.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '3.34.185.7' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.4.0-1024-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Nov  6 19:23:18 UTC 2020
+
+  System load:  0.95              Processes:             107
+  Usage of /:   30.1% of 7.69GB   Users logged in:       0
+  Memory usage: 18%               IPv4 address for eth0: 172.31.40.25
+  Swap usage:   0%
+
+
+89 updates can be installed immediately.
+38 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+
+Last login: Fri Nov  6 19:15:09 2020 from 118.33.60.104
+ubuntu@ip-172-31-40-25:~$ sudo lsof -i 5000
+lsof: unknown protocol name (5000) in: -i 5000
+lsof 4.93.2
+ latest revision: https://github.com/lsof-org/lsof
+ latest FAQ: https://github.com/lsof-org/lsof/blob/master/00FAQ
+ latest (non-formatted) man page: https://github.com/lsof-org/lsof/blob/master/Lsof.8
+ usage: [-?abhKlnNoOPRtUvVX] [+|-c c] [+|-d s] [+D D] [+|-E] [+|-e s] [+|-f[gG]]
+ [-F [f]] [-g [s]] [-i [i]] [+|-L [l]] [+m [m]] [+|-M] [-o [o]] [-p s]
+ [+|-r [t]] [-s [p:s]] [-S [t]] [-T [t]] [-u s] [+|-w] [-x [fl]] [--] [names]
+Use the ``-h'' option to get more help information.
+ubuntu@ip-172-31-40-25:~$ sudo lsof -i :5000
+ubuntu@ip-172-31-40-25:~$ wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+OK
+ubuntu@ip-172-31-40-25:~$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse
+ubuntu@ip-172-31-40-25:~$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse
+ubuntu@ip-172-31-40-25:~$ sudo apt-get update
+Hit:1 http://ap-northeast-2.ec2.archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://ap-northeast-2.ec2.archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 http://ap-northeast-2.ec2.archive.ubuntu.com/ubuntu focal-backports InRelease
+Ign:4 https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 InRelease
+Hit:5 https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 Release
+Get:7 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]
+Fetched 107 kB in 1s (82.3 kB/s)
+Reading package lists... Done
+ubuntu@ip-172-31-40-25:~$ sudo apt-get install -y mongodb-org
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+mongodb-org is already the newest version (4.2.10).
+You might want to run 'apt --fix-broken install' to correct these.
+The following packages have unmet dependencies:
+ mongodb-org : Depends: mongodb-org-server but it is not going to be installed
+               Depends: mongodb-org-mongos but it is not going to be installed
+               Depends: mongodb-org-tools but it is not going to be installed
+E: Unmet dependencies. Try 'apt --fix-broken install' with no packages (or specify a solution).
+ubuntu@ip-172-31-40-25:~$ rm /var/lib/dpkg/lock
+rm: remove write-protected regular empty file '/var/lib/dpkg/lock'? y
+rm: cannot remove '/var/lib/dpkg/lock': Permission denied
+ubuntu@ip-172-31-40-25:~$ apt --fix-broken install
+E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+ubuntu@ip-172-31-40-25:~$ rm /var/lib/dpkg/lock
+rm: remove write-protected regular empty file '/var/lib/dpkg/lock'? yes
+rm: cannot remove '/var/lib/dpkg/lock': Permission denied
+ubuntu@ip-172-31-40-25:~$
